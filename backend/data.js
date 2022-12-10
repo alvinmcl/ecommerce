@@ -42,7 +42,7 @@ const data = {
       category: 'Cat',
       image: '/images/p4.JPG',
       price: 220,
-      countInStock: 10,
+      countInStock: 0,
       brand: 'Black',
       rating: 4.5,
       numReviews: 20,
