@@ -1,18 +1,19 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Rating from './Rating';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
 import axios from 'axios';
 
 function Product(props) {
   const { product } = props;
-
+  const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
   } = state;
+  const [toRedirectCart, setToRedirectCart] = useState(false);
 
   const addToCartHandler = async (item) => {
     const existItem = cartItems.find((x) => x._id === product._id);
@@ -21,12 +22,18 @@ function Product(props) {
     if (data.countInStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;
+    } else {
+      setToRedirectCart(true);
     }
     ctxDispatch({
       type: 'CART_ADD_ITEM',
       payload: { ...item, quantity },
     });
   };
+
+  useEffect(() => {
+    if (toRedirectCart) navigate('/cart');
+  }, [navigate, toRedirectCart]);
 
   return (
     <Card>

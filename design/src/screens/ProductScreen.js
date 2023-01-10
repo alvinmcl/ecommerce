@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext, useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
@@ -31,6 +31,7 @@ function ProductScreen() {
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
+  const [toRedirectCart, setToRedirectCart] = useState(false);
 
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
@@ -59,13 +60,18 @@ function ProductScreen() {
     if (data.countInStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;
+    } else {
+      setToRedirectCart(true);
     }
     ctxDispatch({
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity },
     });
-    navigate('/cart');
   };
+
+  useEffect(() => {
+    if (toRedirectCart) navigate('/cart');
+  }, [navigate, toRedirectCart]);
 
   return loading ? (
     <LoadingBox />

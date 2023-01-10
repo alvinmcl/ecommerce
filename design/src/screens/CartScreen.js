@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
 import { Helmet } from 'react-helmet-async';
 import Row from 'react-bootstrap/Row';
@@ -16,6 +16,7 @@ export default function CartScreen() {
   const {
     cart: { cartItems },
   } = state;
+  const [toRedirectSignin, setToRedirectSignin] = useState(false);
 
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
@@ -34,8 +35,12 @@ export default function CartScreen() {
   };
 
   const checkoutHandler = () => {
-    navigate('/signin?redirect=/shipping');
+    setToRedirectSignin(true);
   };
+
+  useEffect(() => {
+    if (toRedirectSignin) navigate('/signin?redirect=/shipping');
+  }, [navigate, toRedirectSignin]);
 
   return (
     <div>
