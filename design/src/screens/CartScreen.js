@@ -11,7 +11,7 @@ import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 
 export default function CartScreen() {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
