@@ -1,7 +1,22 @@
+import bcrypt from 'bcryptjs';
+
 const data = {
+  users: [
+    {
+      name: 'admin',
+      email: 'admin@example.com',
+      password: bcrypt.hashSync('123123'),
+      isAdmin: true,
+    },
+    {
+      name: 'user',
+      email: 'user@example.com',
+      password: bcrypt.hashSync('123123'),
+      isAdmin: false,
+    },
+  ],
   products: [
     {
-      _id: 1,
       name: 'Tabby Cat 1',
       slug: 'tabby-cat-1',
       category: 'Cat',
@@ -14,7 +29,6 @@ const data = {
       description: 'brown tabby cat',
     },
     {
-      _id: 2,
       name: 'White Kitten 1',
       slug: 'white-kitten-1',
       category: 'Kitten',
@@ -27,7 +41,6 @@ const data = {
       description: 'white kitten',
     },
     {
-      _id: 3,
       name: 'White Kitten 2',
       slug: 'white-kitten-2',
       category: 'Kitten',
@@ -40,7 +53,6 @@ const data = {
       description: 'white kitten',
     },
     {
-      _id: 4,
       name: 'Black Cat 1',
       slug: 'black-cat-1',
       category: 'Cat',
