@@ -1,4 +1,10 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useNavigate,
+} from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomeScreen from './screens/HomeScreen';
@@ -9,19 +15,29 @@ import Badge from 'react-bootstrap/Badge';
 import Container from 'react-bootstrap/Container';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Store } from './Store';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
 
 function App() {
+  // const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
+  // const [toRedirectHomePage, setToRedirectHomePage] = useState(false);
 
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('shippingAddressObj');
+    // setToRedirectHomePage(true);
   };
+
+  // useEffect(() => {
+  //   if (toRedirectHomePage) navigate('/');
+  // }, [toRedirectHomePage, navigate]);
+
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
@@ -72,6 +88,7 @@ function App() {
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
+              <Route path="/shipping" element={<ShippingAddressScreen />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/" element={<HomeScreen />} />
             </Routes>
