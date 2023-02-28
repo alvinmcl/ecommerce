@@ -49,7 +49,12 @@ export default function ShippingAddressScreen() {
       'shippingAddressObj',
       JSON.stringify({ fullName, shippingAddress, city, postalCode, country })
     );
+    setToRedirectPayment(true);
   };
+
+  useEffect(() => {
+    if (toRedirectPayment) navigate('/payment');
+  }, [navigate, toRedirectPayment]);
 
   return (
     <div>
