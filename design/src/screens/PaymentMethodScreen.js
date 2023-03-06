@@ -34,7 +34,7 @@ export default function PaymentMethodScreen() {
 
   useEffect(() => {
     if (toRedirectToPlaceOrder) navigate('/placeorder');
-  });
+  }, [navigate, toRedirectToPlaceOrder]);
   return (
     <div>
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
@@ -54,7 +54,7 @@ export default function PaymentMethodScreen() {
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
           </div>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <Form.Check
               type="radio"
               id="Cash"
@@ -63,7 +63,7 @@ export default function PaymentMethodScreen() {
               checked={paymentMethodName === 'Cash'}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
-          </div>
+          </div> */}
           <Button variant="primary" type="submit">
             Continue
           </Button>
