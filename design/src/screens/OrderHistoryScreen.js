@@ -34,11 +34,6 @@ export default function OrderHistoryScreen() {
   const [toRedirectToOrder, setToRedirectToOrder] = useState(false);
   const [targetedOrderId, setTargetedOrderId] = useState('');
 
-  const redirectToOrder = (order) => {
-    setTargetedOrderId(order);
-    setToRedirectToOrder(true);
-  };
-
   useEffect(() => {
     if (toRedirectToOrder) {
       navigate(`/order/${targetedOrderId}`);
@@ -88,18 +83,23 @@ export default function OrderHistoryScreen() {
                 <td>{order._id}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice.toFixed(2)}</td>
-                <td>{order.isPaid ? order.paidAt.subString(0, 10) : 'No'}</td>
+                <td>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</td>
                 <td>
                   {order.isDelivered
-                    ? order.deliveredAt.subString(0, 10)
+                    ? order.deliveredAt.substring(0, 10)
                     : 'No'}
                 </td>
                 <td>
                   <Button
                     type="button"
                     variant="light"
-                    onClick={redirectToOrder(`${order._id}`)}
-                  ></Button>
+                    onClick={() => {
+                      setTargetedOrderId(`${order._id}`);
+                      setToRedirectToOrder(true);
+                    }}
+                  >
+                    Details
+                  </Button>
                 </td>
               </tr>
             ))}

@@ -74,7 +74,7 @@ export default function PlaceOrderScreen() {
       dispatch({ type: 'CREATE_SUCCESS' });
       localStorage.removeItem('cartItems');
       setToRedirectToOrderPage(true);
-      setViewingOrderId(data.order._id);
+      setViewingOrderId(data.newOrder._id);
     } catch (err) {
       dispatch({ type: 'CREATE_FAIL' });
       setViewingOrderId('');
@@ -90,7 +90,7 @@ export default function PlaceOrderScreen() {
 
   useEffect(() => {
     if (toRedirectToOrderPage) {
-      navigate(`/orders/${viewingOrderId}`);
+      navigate(`/order/${viewingOrderId}`);
     }
   }, [viewingOrderId, navigate, toRedirectToOrderPage]);
 
@@ -190,7 +190,7 @@ export default function PlaceOrderScreen() {
                   <div className="d-grid">
                     <Button
                       type="button"
-                      onclick={placeOrderHandler}
+                      onClick={placeOrderHandler}
                       disabled={cart.cartItems.length === 0}
                     >
                       Place Order
