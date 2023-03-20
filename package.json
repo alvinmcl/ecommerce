@@ -4,7 +4,7 @@
   "description": "ecom",
   "main": "index.js",
   "scripts": {
-    "build": "cd backend && npm install --force && cd ../design && npm install --force && npm run build",
+    "build": "cd backend && npm install && cd ../design && npm install && npm run build",
     "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
