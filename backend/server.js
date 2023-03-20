@@ -9,7 +9,6 @@ import orderRouter from './routes/orderRoutes.js';
 
 dotenv.config();
 
-var express = require('express');
 var cors = require('cors');
 
 mongoose
