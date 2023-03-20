@@ -33,10 +33,10 @@ app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 
-app.use(`${process.env.REACT_FRONT_END}/design/build`);
-app.get('*', (req, res) =>
-  res.sendFile(`${process.env.REACT_FRONT_END}/design/build/index.html`)
-);
+// app.use(`${process.env.REACT_FRONT_END}/design/build`);
+// app.get('*', (req, res) =>
+//   res.sendFile(`${process.env.REACT_FRONT_END}/design/build/index.html`)
+// );
 
 const port = process.env.PORT || 5000;
 
