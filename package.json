@@ -6,11 +6,8 @@
   "scripts": {
     "build": "cd backend && npm install && cd ../design && npm install && npm run build",
     "start": "node backend/server.js",
-    "server": "nodemon server.js",
-    "design": "bon start --prefix design",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run server\" \"npm run design\"",
-    "render-postbuild": "npm install --prefix design && npm run build --prefix design"
+    "render-postbuild": "cd ../design && npm install"
   },
   "repository": {
     "type": "git",
