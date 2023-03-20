@@ -44,7 +44,7 @@ export default function ProfileScreen() {
       try {
         dispatch({ type: 'UPDATE_REQUEST' });
         const { data } = await axios.put(
-          `${process.env.REACT_APP_API_HOST}/api/users/profile`,
+          `/api/users/profile`,
           {
             name,
             email,

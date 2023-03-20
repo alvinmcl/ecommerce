@@ -19,9 +19,7 @@ export default function CartScreen() {
   const [toRedirectSignin, setToRedirectSignin] = useState(false);
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_API_HOST}/api/products/${item._id}`
-    );
+    const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;
