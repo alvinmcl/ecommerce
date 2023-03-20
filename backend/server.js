@@ -10,8 +10,6 @@ import orderRouter from './routes/orderRoutes.js';
 
 dotenv.config();
 
-var cors = require('cors');
-
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
