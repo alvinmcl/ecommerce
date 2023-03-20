@@ -32,11 +32,14 @@ export default function SignupScreen() {
       return;
     }
     try {
-      const { data } = await axios.post('/api/users/signup', {
-        name,
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_HOST}/api/users/signup`,
+        {
+          name,
+          email,
+          password,
+        }
+      );
       setToRedirectToUrl(true);
     } catch (err) {
       toast.error(getError(err));
