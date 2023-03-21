@@ -1,5 +1,5 @@
 function Rating(props) {
-  const { rating, numReviews } = props;
+  const { rating, numReviews, caption } = props;
   var hasHalfStar = false;
   let targetedStarForHalf = -1;
   const ratingStars = [];
@@ -30,7 +30,11 @@ function Rating(props) {
   return (
     <div className="rating">
       {ratingStars}
-      <span> {numReviews} reviews</span>
+      {caption ? (
+        <span>{caption}</span>
+      ) : (
+        <span>{' ' + numReviews + ' reviews'}</span>
+      )}
     </div>
   );
 }
