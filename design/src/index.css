@@ -67,6 +67,10 @@ main {
   color: #f08000;
 }
 
+.text-bold {
+  font-weight: bold;
+}
+
 /* sidebar */
 
 .navbar-brand {
