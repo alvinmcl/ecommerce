@@ -1,5 +1,5 @@
 import express from 'express';
-import path from 'path';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import seedRouter from './routes/seedRoutes.js';
@@ -20,6 +20,7 @@ mongoose
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -32,11 +33,10 @@ app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/design/build')));
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/design/build/index.html'))
-);
+// app.use(`${process.env.REACT_FRONT_END}/design/build`);
+// app.get('*', (req, res) =>
+//   res.sendFile(`${process.env.REACT_FRONT_END}/design/build/index.html`)
+// );
 
 const port = process.env.PORT || 5000;
 
