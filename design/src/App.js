@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { HashRouter, Link, Route, Routes } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
@@ -54,7 +54,7 @@ function App() {
     fetchCategories();
   }, []);
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div
         className={
           sidebarIsOpen
@@ -158,7 +158,7 @@ function App() {
           <div className="text-center">All rights reserved</div>
         </footer>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
