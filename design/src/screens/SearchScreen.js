@@ -70,7 +70,6 @@ const ratings = [
     rating: 1,
   },
 ];
-
 export default function SearchScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -146,7 +145,7 @@ export default function SearchScreen() {
                   Any
                 </Link>
               </li>
-              {categories.map((c) => {
+              {categories.map((c) => (
                 <li key={c}>
                   <Link
                     className={c === category ? 'text-bold' : ''}
@@ -154,8 +153,8 @@ export default function SearchScreen() {
                   >
                     {c}
                   </Link>
-                </li>;
-              })}
+                </li>
+              ))}
             </ul>
           </div>
           <div>
@@ -169,7 +168,7 @@ export default function SearchScreen() {
                   Any
                 </Link>
               </li>
-              {prices.map((p) => {
+              {prices.map((p) => (
                 <li key={p.value}>
                   <Link
                     to={getFilterUrl({ price: p.value })}
@@ -177,14 +176,14 @@ export default function SearchScreen() {
                   >
                     {p.name}
                   </Link>
-                </li>;
-              })}
+                </li>
+              ))}
             </ul>
           </div>
           <div>
             <h3>Avg. Customer Review</h3>
             <ul>
-              {ratings.map((r) => {
+              {ratings.map((r) => (
                 <li key={r.name}>
                   <Link
                     to={getFilterUrl({ rating: r.rating })}
@@ -192,8 +191,8 @@ export default function SearchScreen() {
                   >
                     <Rating caption={' & up'} rating={r.rating}></Rating>
                   </Link>
-                </li>;
-              })}
+                </li>
+              ))}
               <li>
                 <Link
                   to={getFilterUrl({ rating: 'all' })}

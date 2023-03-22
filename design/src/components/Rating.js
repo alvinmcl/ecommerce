@@ -4,7 +4,7 @@ function Rating(props) {
   let targetedStarForHalf = -1;
   const ratingStars = [];
   if (rating !== undefined) {
-    let tempRating = new String(rating);
+    let tempRating = `${rating}`;
     if (tempRating.includes('.')) {
       hasHalfStar = tempRating.split('.')[1] >= 0.5;
     }
