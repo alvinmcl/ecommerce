@@ -36,7 +36,7 @@ app.use('/api/orders', orderRouter);
 
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, '/design/build')));
-app.get('*', (req, res) =>
+app.get('/*', (req, res) =>
   res.sendFile(path.join(__dirname, '/design/build/index.html'))
 );
 
