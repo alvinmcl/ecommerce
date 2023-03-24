@@ -38,7 +38,7 @@ function App() {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('shippingAddressObj');
     localStorage.removeItem('paymentMethodObj');
-    window.location.href = '/signin';
+    window.location.href = '/#/signin';
   };
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
