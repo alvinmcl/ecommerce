@@ -1,4 +1,4 @@
-import { HashRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
+import { HashRouter, Link, Route, Routes } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
@@ -38,7 +38,7 @@ function App() {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('shippingAddressObj');
     localStorage.removeItem('paymentMethodObj');
-    <Navigate to="/signin" />;
+    window.location.href = '/signin';
   };
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
