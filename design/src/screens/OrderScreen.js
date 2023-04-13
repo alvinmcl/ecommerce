@@ -233,7 +233,7 @@ export default function OrderScreen() {
                     <Col>${order.totalPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
-                {!order.isPaid && (
+                {!order.isPaid && userInfo.isAdmin === false && (
                   <ListGroup.Item>
                     {isPending ? (
                       <LoadingBox />

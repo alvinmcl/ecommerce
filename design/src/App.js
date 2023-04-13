@@ -198,6 +198,30 @@ function App() {
                   </AdminRoute>
                 }
               />
+              <Route
+                path="/admin/productlist"
+                element={
+                  <AdminRoute>
+                    <OrderHistoryScreen />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/orderlist"
+                element={
+                  <AdminRoute>
+                    <OrderHistoryScreen />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/userlist"
+                element={
+                  <AdminRoute>
+                    <OrderHistoryScreen />
+                  </AdminRoute>
+                }
+              />
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
