@@ -71,6 +71,10 @@ main {
   font-weight: bold;
 }
 
+.Toastify__toast-body {
+  white-space: pre-line;
+}
+
 /* sidebar */
 
 .navbar-brand {

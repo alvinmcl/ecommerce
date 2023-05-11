@@ -111,7 +111,7 @@ orderRouter.post(
 
       const name = req.body.params.name;
 
-      const idFilter = id && id !== '' ? { id } : {};
+      const idFilter = id && id !== '' ? { _id: id } : {};
       const dateFilter =
         minDate && minDate !== '' && maxDate && maxDate !== ''
           ? { createdAt: { $gte: new Date(minDate), $lte: new Date(maxDate) } }
@@ -137,22 +137,15 @@ orderRouter.post(
       let userData = null;
       let userIdFilter = null;
 
-      console.log(paidStatusFilter);
-      console.log(deliveryStatusFilter);
-
       if (name && name !== '') {
         userData = await User.findOne({ ...nameFilter });
 
         if (userData) userIdFilter = { user: userData._id };
       }
 
-      console.log(userIdFilter);
-
       let toSearchOrder = true;
 
       if (name && name !== '' && userData === null) toSearchOrder = false;
-
-      console.log(toSearchOrder);
 
       if (toSearchOrder) {
         const orders = await Order.find({

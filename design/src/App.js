@@ -28,6 +28,10 @@ import SearchScreen from './screens/SearchScreen';
 import ProtectedRoute from './components/ProtectedRoute';
 import DashboardScreen from './screens/DashboardScreen';
 import AdminRoute from './components/AdminRoute';
+import UserListScreen from './screens/UserListScreen';
+import CreateUserScreen from './screens/CreateUserScreen';
+import ProductListScreen from './screens/ProductListScreen';
+import CreateProductScreen from './screens/CreateProductScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -202,7 +206,15 @@ function App() {
                 path="/admin/productlist"
                 element={
                   <AdminRoute>
-                    <OrderHistoryScreen />
+                    <ProductListScreen />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/createproduct"
+                element={
+                  <AdminRoute>
+                    <CreateProductScreen />
                   </AdminRoute>
                 }
               />
@@ -218,10 +230,19 @@ function App() {
                 path="/admin/userlist"
                 element={
                   <AdminRoute>
-                    <OrderHistoryScreen />
+                    <UserListScreen />
                   </AdminRoute>
                 }
               />
+              <Route
+                path="/admin/createuser"
+                element={
+                  <AdminRoute>
+                    <CreateUserScreen />
+                  </AdminRoute>
+                }
+              />
+
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>

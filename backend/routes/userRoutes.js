@@ -6,6 +6,8 @@ import { generateToken, isAuth } from '../utils.js';
 
 const userRouter = express.Router();
 
+const PAGE_SIZE = 5;
+
 userRouter.post(
   '/signin',
   expressAsyncHandler(async (req, res) => {
@@ -35,8 +37,6 @@ userRouter.put(
     } else {
       const user = await User.findById(req.user._id);
       if (user) {
-        user.name = req.body.name || user.name;
-        user.email = req.body.email || user.email;
         if (req.body.password) {
           user.password = bcrypt.hashSync(req.body.password, 8);
         }
@@ -59,19 +59,116 @@ userRouter.put(
 userRouter.post(
   '/signup',
   expressAsyncHandler(async (req, res) => {
-    const newUser = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: bcrypt.hashSync(req.body.password),
+    const nameOrEmailCheck = await User.findOne({
+      $or: [{ name: req.body.name }, { email: req.body.email }],
     });
-    const user = await newUser.save();
-    res.send({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token: generateToken(user),
-    });
+
+    if (nameOrEmailCheck) {
+      res.status(301).send({ message: 'Email Or Name is Used' });
+    } else {
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password),
+      });
+      const user = await newUser.save();
+      res.send({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: generateToken(user),
+      });
+    }
+  })
+);
+
+userRouter.post(
+  '/searchUserList',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    try {
+      const id = req.body.params.id;
+      const email = req.body.params.email;
+      const minDate = req.body.params.minDate;
+      const maxDate = req.body.params.maxDate;
+      const isAdminStatus = req.body.params.isAdminStatus;
+      const page = req.body.params.pageNo;
+
+      const name = req.body.params.name;
+
+      const idFilter = id && id !== '' ? { _id: id } : {};
+      const emailFilter = email && email !== '' ? { email: email } : {};
+
+      const dateFilter =
+        minDate && minDate !== '' && maxDate && maxDate !== ''
+          ? { createdAt: { $gte: new Date(minDate), $lte: new Date(maxDate) } }
+          : {};
+
+      const isAdminStatusFilter =
+        isAdminStatus && isAdminStatus !== 'all'
+          ? { isAdmin: isAdminStatus }
+          : {};
+
+      const nameFilter = name && name !== '' ? { name: name } : {};
+
+      const users = await User.find({
+        ...idFilter,
+        ...nameFilter,
+        ...emailFilter,
+        ...dateFilter,
+        ...isAdminStatusFilter,
+      })
+        .sort({ createdAt: -1, isAdmin: 1 })
+        .skip(PAGE_SIZE * (page - 1))
+        .limit(PAGE_SIZE);
+
+      const countUsers = await User.countDocuments({
+        ...idFilter,
+        ...nameFilter,
+        ...emailFilter,
+        ...dateFilter,
+        ...isAdminStatusFilter,
+      });
+
+      res.send({ users, page, pages: Math.ceil(countUsers / PAGE_SIZE) });
+    } catch (err) {
+      res.status(404).send({ message: err });
+    }
+  })
+);
+
+userRouter.post(
+  '/createUser',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    if (req.user.isAdmin === true) {
+      try {
+        const nameOrEmailCheck = await User.findOne({
+          $or: [
+            { name: req.body.params.name },
+            { email: req.body.params.email },
+          ],
+        });
+
+        if (nameOrEmailCheck) {
+          res.status(301).send({ message: 'Email Or Name is Used' });
+        } else {
+          const newUser = new User({
+            name: req.body.params.name,
+            email: req.body.params.email,
+            password: bcrypt.hashSync(req.body.params.password),
+            isAdmin: req.body.params.isAdmin,
+          });
+          const user = await newUser.save();
+          res.send({ user: user, message: 'User successfully created' });
+        }
+      } catch (err) {
+        res.status(404).send({ message: err });
+      }
+    } else {
+      res.status(202).send({ message: 'Invalid Request' });
+    }
   })
 );
 

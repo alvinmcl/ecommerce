@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
 import axios from 'axios';
-import LoadingBox from '../components/LoadingBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -26,8 +25,6 @@ export default function ProfileScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
 
-  const [name, setName] = useState(userInfo.name);
-  const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -46,8 +43,6 @@ export default function ProfileScreen() {
         const { data } = await axios.put(
           `${process.env.REACT_APP_API_HOST}/api/users/profile`,
           {
-            name,
-            email,
             password,
             confirmPassword,
           },
@@ -74,20 +69,11 @@ export default function ProfileScreen() {
       <form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name</Form.Label>
-          <Form.Control
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          ></Form.Control>
+          <Form.Label className="mb-3">{userInfo.name}</Form.Label>
         </Form.Group>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          ></Form.Control>
+          <Form.Label className="mb-3">{userInfo.email}</Form.Label>
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Current Password</Form.Label>

@@ -133,7 +133,8 @@ export default function OrderHistoryScreen() {
     }
   };
 
-  const handleSearchFilter = async (p) => {
+  const handleSearchFilter = async (p, event) => {
+    event.preventDefault();
     dispatch({ type: 'FILTER_DATA_REQUEST' });
     try {
       const { data } = await axios.post(
@@ -279,7 +280,7 @@ export default function OrderHistoryScreen() {
               <Col>
                 <Button
                   type="button"
-                  onClick={() => handleSearchFilter(1)}
+                  onClick={(e) => handleSearchFilter(1, e)}
                   style={{ marginTop: '10px' }}
                 >
                   Search
@@ -373,7 +374,7 @@ export default function OrderHistoryScreen() {
             <Button
               className={Number(page) === x + 1 ? 'text-bold' : ''}
               variant="light"
-              onClick={() => handleSearchFilter(x + 1)}
+              onClick={(e) => handleSearchFilter(x + 1, e)}
             >
               {x + 1}
             </Button>
